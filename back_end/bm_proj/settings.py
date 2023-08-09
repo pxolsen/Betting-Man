@@ -14,17 +14,16 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# from dotenv import load_dotenv
-# import os
+from dotenv import load_dotenv
+import os
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n@5ea=h7bp!94q!r&z75g%uj(do_2^uv90wyj9b45uvx0cn+)n'
-# load_dotenv()
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+load_dotenv()
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # Change to false for prod
@@ -47,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bettor_app',
     'bet_app',
-    'game_app',
     'rest_framework',
     'rest_framework.authtoken',
     # 'corsheaders'
