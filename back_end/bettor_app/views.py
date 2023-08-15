@@ -15,7 +15,7 @@ class Sign_up(APIView):
         password = request.data.get("password")
         new_bettor = Bettor.objects.create_user(username=username, password=password)
         token = Token.objects.create(user = new_bettor)
-        return Response({"bettor": new_bettor.username, "token": token.key}, status=HTTP_201_CREATED)
+        return Response({"user": new_bettor.username, "token": token.key}, status=HTTP_201_CREATED)
 
 class Log_in(APIView):
     def post(self, request):
@@ -24,7 +24,7 @@ class Log_in(APIView):
         user = authenticate(username=username, password=password)
         if user:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"client": username, "token": token.key})
+            return Response({"user": username, "token": token.key})
         return Response(status=HTTP_404_NOT_FOUND)
 
 class Log_out(APIView):
