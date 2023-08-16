@@ -22,7 +22,7 @@ export default function LoginPage() {
     })
     console.log(response)
     let token = response.data.token ;
-    let user = response.data.user;
+    let user = response.data.username;
     localStorage.setItem("token", token);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     setUser(user);
@@ -31,19 +31,26 @@ export default function LoginPage() {
 
     return (
       <>
-      <form onSubmit={(e) => login(e)}>
-      <h5>Log In</h5>
+      <form className="flex-row" onSubmit={(e) => login(e)}>
+
+
+      <h5 className="btn">Log In</h5>
+
       <input
+        className="input"
         type="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
+        className="input"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <input type="submit" />
+
+
     </form>
       </>
     )

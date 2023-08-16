@@ -12,7 +12,7 @@ export default function Navbar(props) {
             <Link onClick={logOut}>Logout</Link>
             </>
             :
-            <Link to="/"><h1>BETTING MAN</h1></Link>
+            <Link className="text-3xl font-bold" to="/"><h1>BETTING MAN</h1></Link>
             }
         </nav>
     )

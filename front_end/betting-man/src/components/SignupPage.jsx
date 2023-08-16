@@ -40,13 +40,15 @@ export default function SignupPage() {
 
   return (
     <form onSubmit={(e) => signUp(e)}>
-      <h5>Sign Up</h5>
+      <h5 className="btn">Sign Up</h5>
       <input
+        className="input"
         type="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
+        className="input"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

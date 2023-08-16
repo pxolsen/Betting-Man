@@ -6,6 +6,8 @@
   @apply flex justify-between items-center px-60 py-10 top-0 text-white bg-black
 }
 .btn{
-  @apply py-52 px-52 text-lg font-bold cursor-pointer bg-blue-700 mx-10 w-1/2 inline-block border-8
+  @apply py-52 px-52 text-lg font-bold cursor-pointer bg-blue-700 mx-10 w-1/2 inline-block border-[16px] text-center disabled:hover:border-white hover:border-yellow-300
 }
-
+.input{
+  @apply border border-solid border-black
+}

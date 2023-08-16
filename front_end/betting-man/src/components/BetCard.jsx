@@ -1,146 +1,176 @@
-import { api } from "../utilities"
-import { useState, useEffect } from "react"
+import { api } from "../utilities";
+import { useState, useEffect } from "react";
 
 export default function BetCard(props) {
+  const { betData, setBetMade, user, setUserBets } = props;
+  const [gameStarted, setGameStarted] = useState(false);
+  console.log(betData);
+  const away_team = betData.away_team;
+  const home_team = betData.home_team;
+  const away_team_spread = betData.away_team_spread;
+  const home_team_spread = betData.home_team_spread;
+  const away_team_score = betData.away_team_score;
+  const home_team_score = betData.home_team_score;
+  const bet_status = betData.bet_status;
+  const bettor_pick = betData.bettor_pick;
+  const completed = betData.completed;
+  const winner = betData.winner;
 
-    const { betData, setBetMade, user } = props
-    const [gameStarted, setGameStarted] = useState(false)
-    console.log(betData)
-    const away_team = betData.away_team
-    const home_team = betData.home_team
-    const away_team_spread = betData.away_team_spread
-    const home_team_spread = betData.home_team_spread
-    const away_team_score = betData.away_team_score
-    const home_team_score = betData.home_team_score
-    const bet_status = betData.bet_status
-    const bettor_pick = betData.bettor_pick
-    const completed = betData.completed
-    const winner = betData.winner
+  useEffect(() => {
+    const currentTime = new Date(getCurrentTimeInUTC());
+    const gameTime = new Date(betData.commence_time);
+    setGameStarted(gameTime < currentTime);
+    console.log(
+      `current: ${currentTime}    start: ${gameTime}    has the game started? ${gameStarted}`
+    );
+  }, [user]);
 
-    useEffect(() => {
-        const currentTime = new Date(getCurrentTimeInUTC());
-        const gameTime = new Date(betData.commence_time)
-        setGameStarted(gameTime < currentTime);
-        console.log(`current: ${currentTime}    start: ${gameTime}    has the game started? ${gameStarted}`)
-    }, [user])
+  function convertToEasternTime(utcDateTimeString) {
+    const utcDate = new Date(utcDateTimeString);
+    const easternDate = new Date(
+      utcDate.toLocaleString("en-US", { timeZone: "America/New_York" })
+    );
 
-    function convertToEasternTime(utcDateTimeString) {
-        const utcDate = new Date(utcDateTimeString);
-        const easternDate = new Date(utcDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-      
-        const now = new Date();
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-      
-        const options = {
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZoneName: 'short'
-        };
-      
-        if (isSameDate(easternDate, now)) {
-          return `Today, ${easternDate.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })} EDT`;
-        } else if (isSameDate(easternDate, tomorrow)) {
-          return `Tomorrow, ${easternDate.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })} EDT`;
-        } else {
-          return easternDate.toLocaleString('en-US', options);
-        }
-      }
-      
-      function isSameDate(date1, date2) {
-        return (
-          date1.getFullYear() === date2.getFullYear() &&
-          date1.getMonth() === date2.getMonth() &&
-          date1.getDate() === date2.getDate()
-        );
-      }
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-      const commence_time = convertToEasternTime(betData.commence_time)
-
-
-    const pickTeam = async (team) => {
-        if (!bettor_pick || bettor_pick !== team) {
-            try {
-                await api.put("bets/", {
-                    "bet_id": betData.id,
-                    "bettor_pick": team
-                });
-                console.log("Bet updated successfully");
-                setBetMade((prev) => prev += 1)
-            } catch (error) {
-                console.error("Error updating bet:", error);
-            }
-        } else if (bettor_pick === team) {
-            try {
-                await api.put("bets/", {
-                    "bet_id": betData.id,
-                    "bettor_pick": null,
-                });
-                console.log("Bet updated successfully");
-                setBetMade((prev) => prev += 1)
-            } catch (error) {
-                console.error("Error updating bet:", error);
-            }
-        }
+    const options = {
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
     };
 
-    function getCurrentTimeInUTC() {
-        const now = new Date();
-        const year = now.getUTCFullYear();
-        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(now.getUTCDate()).padStart(2, '0');
-        const hours = String(now.getUTCHours()).padStart(2, '0');
-        const minutes = String(now.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(now.getUTCSeconds()).padStart(2, '0');
-      
-        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
-      };
+    if (isSameDate(easternDate, now)) {
+      return `Today, ${easternDate.toLocaleString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })} EDT`;
+    } else if (isSameDate(easternDate, tomorrow)) {
+      return `Tomorrow, ${easternDate.toLocaleString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })} EDT`;
+    } else {
+      return easternDate.toLocaleString("en-US", options);
+    }
+  }
 
-
-
+  function isSameDate(date1, date2) {
     return (
-        <div className="py-5">
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
 
+  const commence_time = convertToEasternTime(betData.commence_time);
 
-            <div className="bg-gray-500">
+  const pickTeam = async (team) => {
+    if (!bettor_pick || bettor_pick !== team) {
+      try {
+        await api.put("bets/", {
+          bet_id: betData.id,
+          bettor_pick: team,
+        });
+        console.log("Bet updated successfully");
+        if (setUserBets) {
+            setUserBets((prev) =>
+              prev.map((bet) => {
+                if (bet.id === betData.id) {
+                  bet.bettor_pick = team;
+                  return bet
+                } else {
+                    return bet
+                }
+              })
+            );
+        }
+        if (setBetMade) {
+            setBetMade((prev) => (prev += 1));
+        }
+      } catch (error) {
+        console.error("Error updating bet:", error);
+      }
+    } else if (bettor_pick === team) {
+      try {
+        await api.put("bets/", {
+          bet_id: betData.id,
+          bettor_pick: null,
+        });
+        console.log("Bet updated successfully");
+        setUserBets((prev) => prev.filter((bet) => bet.id !== betData.id));
+      } catch (error) {
+        console.error("Error updating bet:", error);
+      }
+    }
+  };
 
-                <h2 className="pt-10 text-center text-xl font-bold">{home_team} vs. {away_team}</h2>
+  function getCurrentTimeInUTC() {
+    const now = new Date();
+    const year = now.getUTCFullYear();
+    const month = String(now.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(now.getUTCDate()).padStart(2, "0");
+    const hours = String(now.getUTCHours()).padStart(2, "0");
+    const minutes = String(now.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(now.getUTCSeconds()).padStart(2, "0");
 
-                {bet_status !== "No Bet" && 
-                <div className={`${bet_status === "Won" 
-                ? "text-green-500 text-lg text-center font-bold" 
-                : bet_status === "Lost" 
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
+  }
+
+  return (
+    <div className="py-5">
+      <div className="bg-gray-500">
+        <h2 className="pt-10 text-center text-xl font-bold">
+          {home_team} vs. {away_team}
+        </h2>
+
+        {bet_status !== "No Bet" && (
+          <div
+            className={`${
+              bet_status === "Won"
+                ? "text-green-500 text-lg text-center font-bold"
+                : bet_status === "Lost"
                 ? "text-red-600 text-lg text-center font-bold"
                 : "text-yellow-400 text-lg text-center font-bold"
-                }`}>{bet_status}</div>
-                }
+            }`}
+          >
+            {bet_status}
+          </div>
+        )}
 
-                <div className="text-center text-lg">{commence_time}</div>
+        <div className="text-center text-lg">{commence_time}</div>
+      </div>
 
-            </div>
+      <div className="flex">
+        <button
+          onClick={() => pickTeam(home_team)}
+          className={`${
+            bettor_pick === home_team ? "btn border-yellow-300" : "btn"
+          }`}
+          disabled={gameStarted}
+        >
+          <div>
+            {home_team} @ {home_team_spread}
+          </div>
+          <div className="text-4xl">{home_team_score}</div>
+        </button>
 
-
-
-            <div className="flex">
-
-
-            <button onClick={()=>pickTeam(home_team)} className={`${bettor_pick === home_team ? "btn border-yellow-300" : "btn"}`}
-            disabled={gameStarted}>
-                <div>{home_team} @ {home_team_spread}</div>
-                <div>{home_team_score}</div>
-            </button>
-
-
-            <button onClick={()=>pickTeam(away_team)} className={`${bettor_pick === away_team ? "btn border-yellow-300" : "btn"}`}
-            disabled={gameStarted}>
-                <div>{away_team} @ {away_team_spread}</div>
-                <div>{away_team_score}</div>
-            </button>
-
-
-            </div>
-        </div>
-    )
+        <button
+          onClick={() => pickTeam(away_team)}
+          className={`${
+            bettor_pick === away_team ? "btn border-yellow-300" : "btn"
+          }`}
+          disabled={gameStarted}
+        >
+          <div>
+            {away_team} @ {away_team_spread}
+          </div>
+          <div className="text-4xl">{away_team_score}</div>
+        </button>
+      </div>
+    </div>
+  );
 }
