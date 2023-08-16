@@ -9,6 +9,7 @@ from bettor_app.serializers import BettorSerializer
 from .models import Bet
 from .serializers import BetSerializer
 import datetime
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 from dotenv import load_dotenv
 import os
@@ -27,7 +28,7 @@ class A_bet(APIView):
         games_endpoint = f"https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?apiKey={API_KEY}&regions=us&markets=spreads&dateFormat=iso&oddsFormat=american&bookmakers=draftkings"
 
         games_response = requests.get(games_endpoint)
-        games_data = games_response.json() 
+        games_data = games_response.json()
 
         for game in games_data:
             if datetime.datetime.strptime(game["commence_time"], "%Y-%m-%dT%H:%M:%S%z").replace(tzinfo=None) > datetime.datetime.now().replace(tzinfo=None):
@@ -69,6 +70,7 @@ class A_bet(APIView):
                         return Response(BetSerializer(new_bet).data)
                     except:
                         continue
+        return Response("No more bets to be made!", status=HTTP_404_NOT_FOUND)
 
 
     # This is where the bettor will alter (PUT) the bet that was created above.
