@@ -8,8 +8,10 @@ export default function BestPage() {
     const [userBets, setUserBets] = useState([])
 
     useEffect(() => {
-        get_user_bets()
-    },[])
+        if (user) {
+            get_user_bets()
+        }
+    },[user])
 
     const get_user_bets = async() => {
         
@@ -21,12 +23,12 @@ export default function BestPage() {
             console.log("There was an issue retrieving your bets.")
         }
     }
-
+    console.log(userBets)
     
     return (
         <div>
             {userBets.map((bet, index) => (
-            <BetCard key={index} betData={bet} />
+            <BetCard key={index} betData={bet} setUserBets={setUserBets} />
             ))}
         </div>
     )

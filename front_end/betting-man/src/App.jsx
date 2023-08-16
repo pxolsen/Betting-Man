@@ -19,7 +19,6 @@ export default function App() {
       try {
         let response = await api.get("bettors/info/");
           setUser(response.data);
-          navigate("home");
       } catch {
         setUser(null);
         navigate("/")
