@@ -24,7 +24,7 @@ class Log_in(APIView):
         user = authenticate(username=username, password=password)
         if user:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"user": username, "token": token.key})
+            return Response({"username": username, "token": token.key})
         return Response(status=HTTP_404_NOT_FOUND)
 
 class Log_out(APIView):

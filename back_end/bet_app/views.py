@@ -80,7 +80,10 @@ class A_bet(APIView):
         bet = Bet.objects.get(id=bet_id)
         bettor_pick = request.data.get("bettor_pick")
         bet.bettor_pick = bettor_pick
-        bet.bet_status = "Pending"
+        if bet.bettor_pick:
+            bet.bet_status = "Pending"
+        else:
+            bet.bet_status = "No Bet"
         bet.save()
         return Response(BetSerializer(bet).data)
     
@@ -89,8 +92,9 @@ class Bets_by_bettor(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, bettor_id):
-        bets_by_bettor = Bet.objects.filter(bettor=bettor_id).exclude(bet_status="No Bet").order_by("-id")
+    def get(self, request):
+        bettor = request.user
+        bets_by_bettor = Bet.objects.filter(bettor=bettor).exclude(bet_status="No Bet").order_by("-id")
 
         # Trying to see if there are any bets made by the bettor
         # If no bets made yet, "except" will trigger on line 126
@@ -99,7 +103,7 @@ class Bets_by_bettor(APIView):
                 # We only want to ping the API for bets that were not complete the last time we checked
                 if not bet.completed:
                     game_id = bet.game_id
-                    score_endpoint = f"https://api.the-odds-api.com/v4/sports/baseball_mlb/scores?apiKey={API_KEY}&daysFrom=1&dateFormat=iso&eventIds={game_id}"
+                    score_endpoint = f"https://api.the-odds-api.com/v4/sports/baseball_mlb/scores?apiKey={API_KEY}&daysFrom=3&dateFormat=iso&eventIds={game_id}"
 
                     score_response = requests.get(score_endpoint)
                     score_data = score_response.json() 
@@ -114,6 +118,7 @@ class Bets_by_bettor(APIView):
                         
 
                         if game["completed"] == True:
+                            bet.completed = True
                             home_team_diff = float(bet.home_team_score) - float(bet.away_team_score)
                             if home_team_diff > (float(bet.home_team_spread) * -1):
                                 bet.winner = bet.home_team
@@ -128,9 +133,7 @@ class Bets_by_bettor(APIView):
 
                     except:
                         continue
-
             return Response(BetSerializer(bets_by_bettor, many=True).data)
-                    # return Response(BetSerializer(bet).data)
         except:
             return Response("No bet's placed yet!")
 
