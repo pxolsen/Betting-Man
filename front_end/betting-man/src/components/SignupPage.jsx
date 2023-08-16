@@ -31,7 +31,7 @@ export default function SignupPage() {
       navigate("/home")
       // console.log(response)
     } catch (err) {
-        alert("Try a differen username!")
+        alert("Try a different username!")
         console.log("request failed")
         console.log(err)
     }

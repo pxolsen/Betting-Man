@@ -19,6 +19,7 @@ export default function HomePage() {
     const get_a_bet = async() => {
         try {
             let response = await api.get("/bets",)
+            console.log(response.data)
             setBetData(response.data)
         } catch {
             return <div>No more bets available!</div>
@@ -27,7 +28,7 @@ export default function HomePage() {
     
     return (
         <div>
-           {betData && <BetCard betData={betData} setBetMade={setBetMade}/>}
+           {betData && <BetCard user={user} betData={betData} setBetMade={setBetMade}/>}
         </div>
     )
 }

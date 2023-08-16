@@ -12,10 +12,6 @@ export default function App() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
-
   const whoAmI = async () => {
     let token = localStorage.getItem("token");
     if (token) {
