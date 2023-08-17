@@ -7,8 +7,8 @@ export default function ProfilePage() {
 
     const { user, logOut, userBets, get_user_bets, deleteAccount } = useOutletContext()
     const[userWins, setUserWins] = useState(0)
-    const[userLosses, setUserLosses] = useState([])
-    const[userPending, setUserPending] = useState([])
+    const[userLosses, setUserLosses] = useState(0)
+    const[userPending, setUserPending] = useState(0)
     // const capital_username = (user.username).charAt(0).toUpperCase() + (user.username).slice(1)
 
     // console.log(user)
@@ -17,7 +17,7 @@ export default function ProfilePage() {
         if (user) {
             get_user_bets()
         }
-    },[])
+    },[user])
 
     useEffect(() => {
         if (userBets) {
@@ -61,7 +61,7 @@ export default function ProfilePage() {
     return (
         <>
         {user ?
-            <div>{user}'s Statistics</div> :
+            <div>{user.username}'s Statistics</div> :
             <div>Refresh the page</div>
         }
         <div>{userWins} Won</div>
