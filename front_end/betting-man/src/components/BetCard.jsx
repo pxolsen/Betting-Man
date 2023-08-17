@@ -2,9 +2,11 @@ import { api } from "../utilities";
 import { useState, useEffect } from "react";
 
 export default function BetCard(props) {
-  const { betData, setBetMade, user, setUserBets } = props;
+
+  const { betData, setBetMade, user, setUserBets, betMade, userBets } = props;
   const [gameStarted, setGameStarted] = useState(false);
-  console.log(betData);
+
+  // console.log(betData);
   const away_team = betData.away_team;
   const home_team = betData.home_team;
   const away_team_spread = betData.away_team_spread;
@@ -20,10 +22,10 @@ export default function BetCard(props) {
     const currentTime = new Date(getCurrentTimeInUTC());
     const gameTime = new Date(betData.commence_time);
     setGameStarted(gameTime < currentTime);
-    console.log(
-      `current: ${currentTime}    start: ${gameTime}    has the game started? ${gameStarted}`
-    );
-  }, [user]);
+    // console.log(
+    //   `current: ${currentTime}    start: ${gameTime}    has the game started? ${gameStarted}`
+    // );
+  }, [user, userBets, betMade]);
 
   function convertToEasternTime(utcDateTimeString) {
     const utcDate = new Date(utcDateTimeString);

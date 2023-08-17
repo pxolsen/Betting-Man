@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage.jsx";
 import BetsPage from "./components/BetsPage.jsx"
 import SignupPage from "./components/SignupPage.jsx"
 import LoginPage from "./components/LoginPage.jsx"
+import ProfilePage from "./components/ProfilePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
           path: "/bets",
           element: <BetsPage />,
         },
+        {
+          path: "/profile",
+          element: <ProfilePage />
+        }
       ],
     },
   ]);

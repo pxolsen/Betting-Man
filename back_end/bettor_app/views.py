@@ -39,3 +39,10 @@ class Info(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         return Response({'username': request.user.username})
+    
+class Delete(APIView):
+    authentication_classes = [TokenAuthentication] 
+    permission_classes = [IsAuthenticated]
+    def delete(self, request):
+        request.user.delete()
+        return Response(status=HTTP_204_NO_CONTENT)

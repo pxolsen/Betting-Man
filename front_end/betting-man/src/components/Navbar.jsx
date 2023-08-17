@@ -9,7 +9,8 @@ export default function Navbar(props) {
             <>
             <Link to="bets">My Bets</Link>
             <Link to="home"><h1 className="text-3xl font-bold">BETTING MAN</h1></Link>
-            <Link onClick={logOut}>Logout</Link>
+            <Link to="profile">Profile</Link>
+            {/* <Link onClick={logOut}>Logout</Link> */}
             </>
             :
             <Link className="text-3xl font-bold" to="/"><h1>BETTING MAN</h1></Link>

@@ -11,6 +11,7 @@ export default function App() {
 
   const [user, setUser] = useState(null)
   const navigate = useNavigate();
+  const [userBets, setUserBets] = useState([])
 
   const whoAmI = async () => {
     let token = localStorage.getItem("token");
@@ -39,15 +40,44 @@ export default function App() {
     }
   }
 
+  const deleteAccount = async () => {
+    let response = await api.delete("bettors/delete/")
+    if (response.status === 204) {
+      localStorage.removeItem("token")
+      setUser(null)
+      delete api.defaults.headers.common["Authorization"];
+      navigate("/")
+    }
+  }
+  
+
   useEffect(() => {
     whoAmI();
   }, []);
 
+//   useEffect(() => {
+//     if (user) {
+//         get_user_bets()
+//     }
+// },[user])
+
+const get_user_bets = async() => {
+    
+    try {
+        console.log(userBets)
+        let response = await api.get("/bets/bettor/")
+        console.log(response.data)
+        setUserBets(response.data)
+    } catch {
+        console.log("There was an issue retrieving your bets.")
+    }
+}
+
 
   return (
     <>
-      <Navbar user={user} logOut={logOut}/>
-        <Outlet context={{ user, setUser }} />
+      <Navbar user={user}/>
+        <Outlet context={{ user, setUser, logOut, whoAmI, userBets, setUserBets, get_user_bets, deleteAccount }} />
     </>
   )
 }

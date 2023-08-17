@@ -28,7 +28,7 @@ export default function HomePage() {
     
     return (
         <div>
-           {betData && <BetCard user={user} betData={betData} setBetMade={setBetMade}/>}
+           {betData && <BetCard user={user} betData={betData} setBetMade={setBetMade} betMade={betMade}/>}
         </div>
     )
 }
