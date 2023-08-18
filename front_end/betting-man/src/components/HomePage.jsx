@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { api } from "../utilities"
 // import { useContext } from "react"
 import { useOutletContext } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 export default function HomePage() {
@@ -27,8 +28,19 @@ export default function HomePage() {
     }
     
     return (
+        <>
+        {
+            user ? 
         <div>
            {betData && <BetCard user={user} betData={betData} setBetMade={setBetMade} betMade={betMade}/>}
+        </div> :
+        <div>
+        <div className="flex">
+        <Link className="btn" to="/login"><button>Login</button></Link>
+        <Link className="btn" to="/signup"><button>Sign Up</button></Link>
         </div>
+    </div>
+        }
+        </>
     )
 }

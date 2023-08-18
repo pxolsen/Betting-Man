@@ -14,7 +14,7 @@ const router = createBrowserRouter([
       children: [
         {
           index: true,
-          element: <LandingPage />,
+          element: <HomePage />,
         },
         {
           path: "/signup",
@@ -24,10 +24,10 @@ const router = createBrowserRouter([
           path: "/login",
           element: <LoginPage />
         },
-        {
-          path: "/home",
-          element: <HomePage />,
-        },
+        // {
+        //   path: "/home",
+        //   element: <HomePage />,
+        // },
         {
           path: "/bets",
           element: <BetsPage />,

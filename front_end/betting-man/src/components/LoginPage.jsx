@@ -26,7 +26,7 @@ export default function LoginPage() {
     localStorage.setItem("token", token);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     setUser(user);
-    navigate("/home")
+    navigate("/")
   }
 
   // const login = async (e) => {
