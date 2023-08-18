@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 // import { userContext } from "../App";
 import { api } from "../utilities";
 import { useNavigate, useOutletContext } from "react-router-dom";
-
+import axios from "axios";
 
 export default function LoginPage() {
   
@@ -29,6 +29,38 @@ export default function LoginPage() {
     navigate("/home")
   }
 
+  // const login = async (e) => {
+  //   e.preventDefault();
+  //   let data = JSON.stringify({
+  //     "username": username,
+  //     "password": password
+  //   });
+    
+  //   let config = {
+  //     method: 'post',
+  //     maxBodyLength: Infinity,
+  //     url: 'http://127.0.0.1:8000/api/bettors/login/',
+  //     headers: { 
+  //       'Content-Type': 'application/json', 
+  //     },
+  //     data : data
+  //   };
+    
+  //   axios.request(config)
+  //   .then((response) => {
+  //     console.log(JSON.stringify(response.data));
+  //     let token = response.data.token ;
+  //     let user = response.data.username;
+  //     localStorage.setItem("token", token);
+  //     api.defaults.headers.common["Authorization"] = `Token ${token}`;
+  //     setUser(user);
+  //     navigate("/home")
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
+
     return (
       <>
       <form className="flex-row" onSubmit={(e) => login(e)}>
@@ -38,7 +70,7 @@ export default function LoginPage() {
 
       <input
         className="input"
-        type="username"
+        type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />

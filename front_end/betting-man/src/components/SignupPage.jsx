@@ -11,10 +11,10 @@ export default function SignupPage() {
   const { setUser } = useOutletContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("username:  ", username);
-    console.log("password:  ", password);
-  }, [username, password]);
+  // useEffect(() => {
+  //   console.log("username:  ", username);
+  //   console.log("password:  ", password);
+  // }, [username, password]);
   
   const signUp = async(e) => {
     e.preventDefault();

@@ -11,7 +11,7 @@ export default function ProfilePage() {
     const[userPending, setUserPending] = useState(0)
     // const capital_username = (user.username).charAt(0).toUpperCase() + (user.username).slice(1)
 
-    // console.log(user)
+    console.log(user)
     useEffect(() => {
         console.log(user)
         if (user) {
@@ -61,7 +61,7 @@ export default function ProfilePage() {
     return (
         <>
         {user ?
-            <div>{user.username}'s Statistics</div> :
+            <div>{user}'s Statistics</div> :
             <div>Refresh the page</div>
         }
         <div>{userWins} Won</div>

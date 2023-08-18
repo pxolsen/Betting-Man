@@ -19,7 +19,8 @@ export default function App() {
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
       try {
         let response = await api.get("bettors/info/");
-          setUser(response.data);
+          setUser(response.data.username); // CHANGED THIS FROM response.data ********************************************************
+          console.log(user)
       } catch {
         setUser(null);
         navigate("/")
