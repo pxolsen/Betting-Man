@@ -3,17 +3,24 @@ import { Link } from "react-router-dom"
 export default function Navbar(props) {
     const { user, logOut } = props
     return (
-        <nav className="nav">
+        <nav className="nav items-center">
             {
             user ?
             <>
-            <Link to="bets">My Bets</Link>
-            <Link to="/"><h1 className="text-3xl font-bold">BETTING MAN</h1></Link>
-            <Link to="profile">Profile</Link>
-            {/* <Link onClick={logOut}>Logout</Link> */}
+            <div className="leftSide">
+                <Link to="bets">My Bets</Link>
+            </div>
+            <div className="centerSide">
+                <Link to="/"><h1 className="text-3xl font-bold">BETTING MAN</h1></Link>
+            </div>
+            <div className="rightSide">
+                <Link to="profile">Profile</Link>
+            </div>
             </>
             :
-            <Link className="text-3xl font-bold" to="/"><h1>BETTING MAN</h1></Link>
+            <div className="centerSide">
+                <Link className="text-3xl font-bold" to="/"><h1>BETTING MAN</h1></Link>
+            </div>
             }
         </nav>
     )
