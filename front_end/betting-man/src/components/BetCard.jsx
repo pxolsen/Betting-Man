@@ -123,12 +123,16 @@ export default function BetCard(props) {
   }
 
   return (
-    <div className="py-5">
-      <div className="bg-gray-500">
-        <h2 className="pt-10 text-center text-xl font-bold">
+    <div className="bg-black h-full">
+
+
+      <div className="w-full py-5 px-4 bg-black">
+
+
+      <div className="py-5 shadow-xl font-black bg-gray-400">
+        <h2 className="text-center text-xl font-bold">
           {home_team} vs. {away_team}
         </h2>
-
         {bet_status !== "No Bet" && (
           <div
             className={`${
@@ -142,11 +146,53 @@ export default function BetCard(props) {
             {bet_status}
           </div>
         )}
-
         <div className="text-center text-lg">{commence_time}</div>
       </div>
 
-      <div className="flex">
+
+        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8">
+
+          <button 
+          onClick={() => pickTeam(home_team)}
+          className={`${
+            bet_status === "Pending" && bettor_pick === home_team ? "btn bg-yellow-300" : 
+            bet_status === "Won" && bettor_pick === home_team ? "btn bg-green-500" :
+            bet_status === "Lost" && bettor_pick === home_team ? "btn bg-red-600" :
+            !gameStarted && bet_status === "Pending" || bet_status === "No Bet" ? "btn bg-white hover:bg-yellow-300" :
+            "btn bg-white"
+          }`}
+          disabled={gameStarted}
+          >
+            <h2 className="text-2xl font-bold text-center py-8">{home_team} @ {home_team_spread}</h2>
+            {home_team_score !== null && (
+              <div className="text-4xl font-bold">{home_team_score}</div>
+            )}
+          </button>
+
+          <button 
+          onClick={() => pickTeam(away_team)}
+          className={`${
+            bet_status === "Pending" && bettor_pick === away_team ? "btn bg-yellow-300" : 
+            bet_status === "Won" && bettor_pick === away_team ? "btn bg-green-500" :
+            bet_status === "Lost" && bettor_pick === away_team ? "btn bg-red-600" :
+            !gameStarted && bet_status === "Pending" || bet_status === "No Bet" ? "btn bg-white hover:bg-yellow-300" :
+            "btn bg-white"
+          }`}
+          disabled={gameStarted}
+          >
+            <h2 className="text-2xl font-bold text-center py-8">{away_team} @ {away_team_spread}</h2>
+            {away_team_score !== null && (
+              <div className="text-4xl font-bold">{away_team_score}</div>
+            )}
+          </button>
+
+        </div>
+      </div>
+
+
+
+
+      {/* <div className="flex">
         <button
           onClick={() => pickTeam(home_team)}
           className={`${
@@ -160,6 +206,8 @@ export default function BetCard(props) {
           <div className="text-4xl">{home_team_score}</div>
         </button>
 
+
+
         <button
           onClick={() => pickTeam(away_team)}
           className={`${
@@ -172,7 +220,9 @@ export default function BetCard(props) {
           </div>
           <div className="text-4xl">{away_team_score}</div>
         </button>
-      </div>
+      </div> */}
+
+
     </div>
   );
 }

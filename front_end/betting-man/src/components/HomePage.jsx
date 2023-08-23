@@ -28,7 +28,7 @@ export default function HomePage() {
     }
     
     return (
-        <>
+        <div>
         {
             user ? 
         <div>
@@ -41,6 +41,6 @@ export default function HomePage() {
         </div>
     </div>
         }
-        </>
+        </div>
     )
 }

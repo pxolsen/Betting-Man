@@ -2,11 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-.nav{
+.carousel{
+  padding: 5rem;
+  background-color: black;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+}
+.stat-box{
+  height: 300px;
+}
+.stat-box h3{
+  text-align: center;
+  font-size: xxx-large;
+}
+.slick-slide div{
+  margin: 0 1rem;
+}
+/* .nav{
   @apply flex justify-between items-center px-60 py-10 top-0 text-white bg-black
+} */
+.nav{
+  background-color: black;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  color: white;
+  border-bottom: solid white 6px;
+}
+.nav .leftSide{
+  flex: 33.33%;
+  text-align: center;
+  /* background-color: blue; */
+}
+.nav .rightSide{
+  flex: 33.33%;
+  text-align: center;
+  /* background-color: red; */
+}
+.nav .centerSide{
+  flex: 33.33%;
+  text-align: center;
+  /* background-color: green; */
 }
 .btn{
-  @apply py-52 px-52 text-lg font-bold cursor-pointer bg-blue-700 mx-10 w-1/2 inline-block border-[16px] text-center disabled:hover:border-white hover:border-yellow-300
+  @apply w-full h-full flex flex-col p-4 my-4 rounded-lg hover:scale-110 duration-300 justify-center items-center
 }
 .input{
   @apply border border-solid border-black
