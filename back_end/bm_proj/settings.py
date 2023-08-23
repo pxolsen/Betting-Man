@@ -26,12 +26,14 @@ load_dotenv()
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # Change to false for prod
-# DEBUG = False
+# DEBUG = True # Change to false for prod
+DEBUG = False
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["*"]
-# CSRF_TRUSTED_ORIGINS = [""]
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = [""]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 
