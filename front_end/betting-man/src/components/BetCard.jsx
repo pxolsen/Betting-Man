@@ -123,7 +123,7 @@ export default function BetCard(props) {
   }
 
   return (
-    <div className="bg-black h-full">
+    <div className="bg-black mt-20">
 
 
       <div className="w-full py-5 px-4 bg-black h-full">
