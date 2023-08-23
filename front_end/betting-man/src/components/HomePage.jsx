@@ -28,18 +28,17 @@ export default function HomePage() {
     }
     
     return (
-        <div>
+        <div className="homePageDiv">
         {
             user ? 
         <div>
            {betData && <BetCard user={user} betData={betData} setBetMade={setBetMade} betMade={betMade}/>}
         </div> :
-        <div>
-        <div className="flex">
-        <Link className="btn" to="/login"><button>Login</button></Link>
-        <Link className="btn" to="/signup"><button>Sign Up</button></Link>
+
+        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8 h-full">
+            <Link className="btn bg-white font-bold" to="/login"><button>Login</button></Link>
+            <Link className="btn bg-white font-bold" to="/signup"><button>Sign Up</button></Link>
         </div>
-    </div>
         }
         </div>
     )

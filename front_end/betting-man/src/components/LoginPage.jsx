@@ -63,24 +63,26 @@ export default function LoginPage() {
 
     return (
       <>
-      <form className="flex-row" onSubmit={(e) => login(e)}>
+      <form className="flex flex-col pt-10 justify-center items-center" onSubmit={(e) => login(e)}>
 
+      <div className="flex flex-col w-[15vw]">
+        <input
+          className="input"
+          placeholder="username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          className="input"
+          placeholder="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-      <h5 className="btn">Log In</h5>
-
-      <input
-        className="input"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        className="input"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input type="submit" />
+      <button type="submit" className= "bg-white w-[45vw] h-[10vh] rounded-lg hover:scale-105 duration-300 mt-2 font-bold text-l" >Login</button>
 
 
     </form>

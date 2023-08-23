@@ -103,7 +103,7 @@ export default function ProfilePage() {
 
 
         <div className="carousel">
-            <h2 className="text-center text-4xl pb-10 font-bold">{user}'s Statistics</h2>
+            <h2 className="py-6 shadow-xl text-black bg-gray-400 text-center text-2xl font-bold mb-5">{user}'s Statistics</h2>
             <Slider {...settings}>
                 <div className="stat-box bg-blue-500 hover:scale-105 duration-300 rounded-lg">
                     <h3 className="pt-14">{userWins + userLosses}</h3>
