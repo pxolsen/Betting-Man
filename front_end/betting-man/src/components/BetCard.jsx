@@ -126,7 +126,7 @@ export default function BetCard(props) {
     <div className="bg-black h-full">
 
 
-      <div className="w-full py-5 px-4 bg-black">
+      <div className="w-full py-5 px-4 bg-black h-full">
 
 
       <div className="py-5 shadow-xl font-black bg-gray-400">
@@ -150,7 +150,7 @@ export default function BetCard(props) {
       </div>
 
 
-        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8 h-full">
 
           <button 
           onClick={() => pickTeam(home_team)}

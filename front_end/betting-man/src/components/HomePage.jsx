@@ -28,7 +28,7 @@ export default function HomePage() {
     }
     
     return (
-        <div>
+        <div className="homePageDiv">
         {
             user ? 
         <div>
