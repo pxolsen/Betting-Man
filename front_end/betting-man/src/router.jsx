@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import LandingPage from "./components/LandingPage.jsx";
+// import LandingPage from "./components/LandingPage.jsx";
 import HomePage from "./components/HomePage.jsx";
 import BetsPage from "./components/BetsPage.jsx"
 import SignupPage from "./components/SignupPage.jsx"

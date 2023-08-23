@@ -158,7 +158,8 @@ export default function BetCard(props) {
             bet_status === "Pending" && bettor_pick === home_team ? "btn bg-yellow-300" : 
             bet_status === "Won" && bettor_pick === home_team ? "btn bg-green-500" :
             bet_status === "Lost" && bettor_pick === home_team ? "btn bg-red-600" :
-            "btn bg-white hover:bg-yellow-300"
+            !gameStarted && bet_status === "Pending" || bet_status === "No Bet" ? "btn bg-white hover:bg-yellow-300" :
+            "btn bg-white"
           }`}
           disabled={gameStarted}
           >
